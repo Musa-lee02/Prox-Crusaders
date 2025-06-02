@@ -1,0 +1,816 @@
+ilaria@ila:~/proxmark3$ ./client/proxmark3 /dev/ttyACM0
+[=] Session log /home/ilaria/.proxmark3/logs/log_20250525165406.txt
+[+] loaded `/home/ilaria/.proxmark3/preferences.json`
+[+] Using UART port /dev/ttyACM0
+[+] Communicating with PM3 over USB-CDC
+
+
+  8888888b.  888b     d888  .d8888b.   
+  888   Y88b 8888b   d8888 d88P  Y88b  
+  888    888 88888b.d88888      .d88P  
+  888   d88P 888Y88888P888     8888"  
+  8888888P"  888 Y888P 888      "Y8b.  
+  888        888  Y8P  888 888    888  
+  888        888   "   888 Y88b  d88P 
+  888        888       888  "Y8888P" 
+
+
+  [ Audentes fortuna iuvat! ☕ ]
+
+  [ Proxmark3 ]
+
+    MCU....... AT91SAM7S512 Rev A
+    Memory.... 512 KB ( 76% used )
+    Target.... device / fw mismatch
+
+    Client.... Iceman/master/v4.20142-108-gfe4ee76ff 2025-05-20 21:21:53
+    Bootrom... Iceman/master/v4.20142-119-g3b5ee30e0-suspect 2025-05-21 11:34:08 eb
+    OS........ Iceman/master/v4.20142-119-g3b5ee30e0-suspect 2025-05-21 11:23:22 eb325e1
+
+
+[usb] pm3 --> hf search
+ 🕗  Searching for ISO14443-A tag...          
+[=] ---------- ISO14443-A Information ----------
+[+]  UID: 35 7F 32 03   ( ONUID, re-used )
+[+] ATQA: 00 04
+[+]  SAK: 08 [2]
+[+] Possible types:
+[+]    MIFARE Classic 1K
+[=] proprietary non iso14443-4 card found, RATS not supported
+[=] 
+
+[+] Magic capabilities... Gen 1a
+[#] Static nonce......... 009080a2
+[+] Static nonce......... yes
+
+[?] Hint: Use `hf mf c*` magic commands
+[?] Hint: Try `hf mf info`
+
+
+[+] Valid ISO 14443-A tag found
+
+[usb] pm3 --> hf mf chk *1 ? d
+hf mf chk: unexpected argument "*1"
+hf mf chk: unexpected argument "?"
+hf mf chk: unexpected argument "d"
+[!] ⚠️  Try 'hf mf chk --help' for more information.
+
+[usb] pm3 --> hf mf chk
+[+] loaded 61 hardcoded keys
+[=] Start check for keys...
+[=] .................................
+[=] time in checkkeys 3 seconds
+
+[=] testing to read key B...
+
+[+] found keys:
+
+[+] -----+-----+--------------+---+--------------+----
+[+]  Sec | Blk | key A        |res| key B        |res
+[+] -----+-----+--------------+---+--------------+----
+[+]  000 | 003 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  001 | 007 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  002 | 011 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  003 | 015 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  004 | 019 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  005 | 023 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  006 | 027 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  007 | 031 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  008 | 035 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  009 | 039 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  010 | 043 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  011 | 047 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  012 | 051 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  013 | 055 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  014 | 059 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  015 | 063 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+] -----+-----+--------------+---+--------------+----
+[+] ( 0:Failed / 1:Success )
+
+
+[usb] pm3 --> hf mf chk help
+hf mf chk: unexpected argument "help"
+[!] ⚠️  Try 'hf mf chk --help' for more information.
+
+[usb] pm3 --> hf mf chk --help
+
+Check keys on MIFARE Classic card
+
+usage:
+    hf mf chk [-hab*] [-k <hex>]... [--tblk <dec>] [--mini] [--1k] [--2k] [--4k] [--emu] [--dump] [-f <fn>] [--no-default]
+                   
+
+options:
+    -h, --help                     This help
+    -k, --key <hex>                Key specified as 12 hex symbols
+    --tblk <dec>                   Target block number
+    -a                             Target Key A
+    -b                             Target Key B
+    -*, --all                      Target both key A & B (default)
+    --mini                         MIFARE Classic Mini / S20
+    --1k                           MIFARE Classic 1k / S50 (default)
+    --2k                           MIFARE Classic/Plus 2k
+    --4k                           MIFARE Classic 4k / S70
+    --emu                          Fill simulator keys from found keys
+    --dump                         Dump found keys to binary file
+    -f, --file <fn>                Filename of dictionary
+    --no-default                   Skip check default keys
+
+examples/notes:
+    hf mf chk --mini -k FFFFFFFFFFFF                    -> Check all sectors, all keys against MIFARE Mini
+    hf mf chk --1k -k FFFFFFFFFFFF                      -> Check all sectors, all keys against MIFARE Classic 1k
+    hf mf chk --2k -k FFFFFFFFFFFF                      -> Check all sectors, all keys against MIFARE 2k
+    hf mf chk --4k -k FFFFFFFFFFFF                      -> Check all sectors, all keys against MIFARE 4k
+    hf mf chk --1k --emu                                -> Check all sectors, all keys, 1K, and write to emulator memory
+    hf mf chk --1k --dump                               -> Check all sectors, all keys, 1K, and write to file
+    hf mf chk -a --tblk 0 -f mfc_default_keys.dic       -> Check dictionary against block 0, key A
+
+[usb] pm3 --> hf mf chk -f hfmfchk-dump
+[+] loaded 61 hardcoded keys
+[-] ⛔ Error - can't find `hfmfchk-dump.dic`
+[-] ⛔ An error occurred while loading the dictionary!
+[usb] pm3 --> hf mf chk --dump
+[+] loaded 61 hardcoded keys
+[=] Start check for keys...
+[=] .................................
+[=] time in checkkeys 2 seconds
+
+[=] testing to read key B...
+
+[+] found keys:
+
+[+] -----+-----+--------------+---+--------------+----
+[+]  Sec | Blk | key A        |res| key B        |res
+[+] -----+-----+--------------+---+--------------+----
+[+]  000 | 003 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  001 | 007 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  002 | 011 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  003 | 015 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  004 | 019 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  005 | 023 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  006 | 027 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  007 | 031 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  008 | 035 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  009 | 039 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  010 | 043 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  011 | 047 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  012 | 051 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  013 | 055 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  014 | 059 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  015 | 063 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+] -----+-----+--------------+---+--------------+----
+[+] ( 0:Failed / 1:Success )
+
+[+] Generating binary key file
+[+] Found keys have been dumped to `/home/ilaria/hf-mf-357F3203-key.bin`
+[=] --[ FFFFFFFFFFFF ]-- has been inserted for unknown keys where res is 0
+
+[usb] pm3 --> hf mf nested
+
+Execute Nested attack against MIFARE Classic card for key recovery
+
+usage:
+    hf mf nested [-habi] [-k <hex>] [--mini] [--1k] [--2k] [--4k] [--blk <dec>] [-c <dec>] [--tblk <dec>] [--ta]
+                    [--tb] [--tc <dec>] [--emu] [--dump] [--mem]
+
+options:
+    -h, --help                     This help
+    -k, --key <hex>                Key specified as 12 hex symbols
+    --mini                         MIFARE Classic Mini / S20
+    --1k                           MIFARE Classic 1k / S50
+    --2k                           MIFARE Classic/Plus 2k
+    --4k                           MIFARE Classic 4k / S70
+    --blk <dec>                    Input block number
+    -a                             Input key specified is A key (default)
+    -b                             Input key specified is B key
+    -c <dec>                       input key type is key A + offset
+    --tblk <dec>                   Target block number
+    --ta                           Target A key (default)
+    --tb                           Target B key
+    --tc <dec>                     Nested input key type is key A + offset (you must specify a single block as well!)
+    --emu                          Fill simulator keys from found keys
+    --dump                         Dump found keys to file
+    --mem                          Use dictionary from flashmemory
+    -i                             Ignore static encrypted nonces
+
+examples/notes:
+    hf mf nested --blk 0 -a -k FFFFFFFFFFFF --tblk 4 --ta                 -> Use block 0 Key A to find block 4 Key A (single sector key recovery)
+    hf mf nested --mini --blk 0 -a -k FFFFFFFFFFFF                        -> Key recovery against MIFARE Mini
+    hf mf nested --1k --blk 0 -a -k FFFFFFFFFFFF                          -> Key recovery against MIFARE Classic 1k
+    hf mf nested --2k --blk 0 -a -k FFFFFFFFFFFF                          -> Key recovery against MIFARE 2k
+    hf mf nested --4k --blk 0 -a -k FFFFFFFFFFFF                          -> Key recovery against MIFARE 4k
+
+[usb] pm3 --> hf mf nested --1k --blk 0 -a -k FFFFFFFFFFFF
+[#] Static nonce......... 009080a2
+[!] ⚠️  Static nonce detected. Quitting...
+[=] 	 Try use `hf mf staticnested`
+^Csb] pm3 --> hf mf nested 1 0 B ^C
+hf mf nested: unexpected argument "1"
+hf mf nested: unexpected argument "0"
+hf mf nested: unexpected argument "B"
+[!] ⚠️  Try 'hf mf nested --help' for more information.
+
+[usb] pm3 --> ^C
+ilaria@ila:~/proxmark3$ ./client/proxmark3 /dev/ttyACM0
+[=] Session log /home/ilaria/.proxmark3/logs/log_20250525170211.txt
+[+] loaded `/home/ilaria/.proxmark3/preferences.json`
+[+] Using UART port /dev/ttyACM0
+[+] Communicating with PM3 over USB-CDC
+
+
+  8888888b.  888b     d888  .d8888b.   
+  888   Y88b 8888b   d8888 d88P  Y88b  
+  888    888 88888b.d88888      .d88P  
+  888   d88P 888Y88888P888     8888"  
+  8888888P"  888 Y888P 888      "Y8b.  
+  888        888  Y8P  888 888    888  
+  888        888   "   888 Y88b  d88P 
+  888        888       888  "Y8888P" 
+
+
+  [ Ad astra per aspera! ☕ ]
+
+  [ Proxmark3 ]
+
+    MCU....... AT91SAM7S512 Rev A
+    Memory.... 512 KB ( 76% used )
+    Target.... device / fw mismatch
+
+    Client.... Iceman/master/v4.20142-108-gfe4ee76ff 2025-05-20 21:21:53
+    Bootrom... Iceman/master/v4.20142-119-g3b5ee30e0-suspect 2025-05-21 11:34:08 eb
+    OS........ Iceman/master/v4.20142-119-g3b5ee30e0-suspect 2025-05-21 11:23:22 eb325e1
+
+
+[usb] pm3 --> hf mf nested 1 0 B FFFFFFFFFFFF d
+hf mf nested: unexpected argument "1"
+hf mf nested: unexpected argument "0"
+hf mf nested: unexpected argument "B"
+hf mf nested: unexpected argument "FFFFFFFFFFFF"
+hf mf nested: unexpected argument "d"
+[!] ⚠️  Try 'hf mf nested --help' for more information.
+
+[usb] pm3 --> hf mf nested --1k --blk 0 -a -k FFFFFFFFFFFF
+[#] Static nonce......... 009080a2
+[!] ⚠️  Static nonce detected. Quitting...
+[=] 	 Try use `hf mf staticnested`
+[usb] pm3 --> hf mf nested --1k --blk 0 -b -k FFFFFFFFFFFF
+[#] Static nonce......... 009080a2
+[!] ⚠️  Static nonce detected. Quitting...
+[=] 	 Try use `hf mf staticnested`
+[usb] pm3 --> hf mf staticnested
+
+Execute static nested attack against MIFARE Classic card with static nonce for key recovery.
+Supply a known key from one block to recover all keys
+
+usage:
+    hf mf staticnested [-habe] [-k <hex>] [--mini] [--1k] [--2k] [--4k] [--blk <dec>] [--dumpkeys]
+
+options:
+    -h, --help                     This help
+    -k, --key <hex>                Known key (12 hex symbols)
+    --mini                         MIFARE Classic Mini / S20
+    --1k                           MIFARE Classic 1k / S50
+    --2k                           MIFARE Classic/Plus 2k
+    --4k                           MIFARE Classic 4k / S70
+    --blk <dec>                    Input block number
+    -a                             Input key specified is keyA (def)
+    -b                             Input key specified is keyB
+    -e, --emukeys                  Fill simulator keys from found keys
+    --dumpkeys                     Dump found keys to file
+
+examples/notes:
+    hf mf staticnested --mini --blk 0 -a -k FFFFFFFFFFFF
+    hf mf staticnested --1k --blk 0 -a -k FFFFFFFFFFFF
+    hf mf staticnested --2k --blk 0 -a -k FFFFFFFFFFFF
+    hf mf staticnested --4k --blk 0 -a -k FFFFFFFFFFFF
+                                  
+
+[usb] pm3 --> hf mf staticnested --1k --blk 0 -b -k FFFFFFFFFFFF
+[#] Static nonce......... 009080a2
+[=] RDV4 with flashmemory supported detected.
+[+] Testing known keys. Sector count 16
+[+] Fast check found all keys
+
+[+] found keys:
+
+[+] -----+-----+--------------+---+--------------+----
+[+]  Sec | Blk | key A        |res| key B        |res
+[+] -----+-----+--------------+---+--------------+----
+[+]  000 | 003 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  001 | 007 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  002 | 011 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  003 | 015 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  004 | 019 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  005 | 023 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  006 | 027 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  007 | 031 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  008 | 035 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  009 | 039 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  010 | 043 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  011 | 047 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  012 | 051 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  013 | 055 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  014 | 059 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  015 | 063 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+] -----+-----+--------------+---+--------------+----
+[+] ( 0:Failed / 1:Success )
+
+[usb] pm3 --> hf mf staticnested --1k --blk 0 -b -k FFFFFFFFFFFF --dump
+[#] Static nonce......... 009080a2
+[=] RDV4 with flashmemory supported detected.
+[+] Testing known keys. Sector count 16
+[+] Fast check found all keys
+
+[+] found keys:
+
+[+] -----+-----+--------------+---+--------------+----
+[+]  Sec | Blk | key A        |res| key B        |res
+[+] -----+-----+--------------+---+--------------+----
+[+]  000 | 003 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  001 | 007 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  002 | 011 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  003 | 015 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  004 | 019 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  005 | 023 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  006 | 027 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  007 | 031 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  008 | 035 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  009 | 039 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  010 | 043 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  011 | 047 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  012 | 051 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  013 | 055 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  014 | 059 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+]  015 | 063 | FFFFFFFFFFFF | 1 | FFFFFFFFFFFF | 1 
+[+] -----+-----+--------------+---+--------------+----
+[+] ( 0:Failed / 1:Success )
+
+[+] Generating binary key file
+[+] Found keys have been dumped to `/home/ilaria/hf-mf-357F3203-key-001.bin`
+[=] --[ FFFFFFFFFFFF ]-- has been inserted for unknown keys where res is 0
+[usb] pm3 --> hf mf --dump
+
+help             This help
+list             List MIFARE history
+-----------      ----------------------- recovery -----------------------
+info             mfc card Info
+isen             mfc card Info Static Encrypted Nonces
+darkside         Darkside attack
+nested           Nested attack
+hardnested       Nested attack for hardened MIFARE Classic cards
+staticnested     Nested attack against static nonce MIFARE Classic cards
+brute            Smart bruteforce to exploit weak key generators
+autopwn          Automatic key recovery tool for MIFARE Classic
+nack             Test for MIFARE NACK bug
+chk              Check keys
+fchk             Check keys fast, targets all keys on card
+decrypt          Decrypt Crypto1 data from sniff or trace
+supercard        Extract info from a `super card`
+-----------      ----------------------- operations -----------------------
+auth4            ISO14443-4 AES authentication
+acl              Decode and print MIFARE Classic access rights bytes
+dump             Dump MIFARE Classic tag to binary file
+mad              Checks and prints MAD
+personalize      Personalize UID (MIFARE Classic EV1 only)
+rdbl             Read MIFARE Classic block
+rdsc             Read MIFARE Classic sector
+restore          Restore MIFARE Classic binary file to tag
+setmod           Set MIFARE Classic EV1 load modulation strength
+value            Value blocks
+view             Display content from tag dump file
+wipe             Wipe card to zeros and default keys/acc
+wrbl             Write MIFARE Classic block
+-----------      ----------------------- simulation -----------------------
+sim              Simulate MIFARE card
+ecfill           Fill emulator memory with help of keys from emulator
+eclr             Clear emulator memory
+egetblk          Get emulator memory block
+egetsc           Get emulator memory sector
+ekeyprn          Print keys from emulator memory
+eload            Upload file into emulator memory
+esave            Save emulator memory to file
+esetblk          Set emulator memory block
+eview            View emulator memory
+-----------      ----------------------- magic gen1 -----------------------
+cgetblk          Read block from card
+cgetsc           Read sector from card
+cload            Load dump to card
+csave            Save dump from card into file or emulator
+csetblk          Write block to card
+csetuid          Set UID on card
+cview            View card
+cwipe            Wipe card to default UID/Sectors/Keys
+-----------      ----------------------- magic gen3 -----------------------
+gen3uid          Set UID without changing manufacturer block
+gen3blk          Overwrite manufacturer block
+gen3freeze       Perma lock UID changes. irreversible
+-----------      -------------------- magic gen4 GTU --------------------------
+ginfo            Info about configuration of the card
+ggetblk          Read block from card
+gload            Load dump to card
+gsave            Save dump from card into file or emulator
+gsetblk          Write block to card
+gview            View card
+gchpwd           Change card access password. Warning!
+-----------      -------------------- magic gen4 GDM --------------------------
+gdmcfg           Read config block from card
+gdmsetcfg        Write config block to card
+gdmparsecfg      Parse config block to card
+gdmsetblk        Write block to card
+-----------      ----------------------- ndef -----------------------
+ndefformat       Format MIFARE Classic Tag as NFC Tag
+ndefread         Read and print NDEF records from card
+ndefwrite        Write NDEF records to card
+encodehid        Encode a HID Credential / NDEF record to card
+
+[usb] pm3 --> hf mf dump
+[=] Using... hf-mf-357F3203-key.bin
+[+] Loaded binary key file `/home/ilaria/hf-mf-357F3203-key.bin`
+[=] Reading sector access bits...
+[=] .................
+[+] Finished reading sector access bits
+[=] Dumping all blocks from card...
+ 🕓 Sector... 15 block... 3 ( ok )
+[+] Succeeded in dumping all blocks
+
+[+] time: 9 seconds
+
+
+[=] -----+-----+-------------------------------------------------+-----------------
+[=]  sec | blk | data                                            | ascii
+[=] -----+-----+-------------------------------------------------+-----------------
+[=]    0 |   0 | 35 7F 32 03 7B 08 04 00 62 63 64 65 66 67 68 69 | 5.2.{...bcdefghi
+[=]      |   1 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |   2 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |   3 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    1 |   4 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |   5 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |   6 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |   7 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    2 |   8 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |   9 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  10 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  11 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    3 |  12 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  13 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  14 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  15 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    4 |  16 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  17 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  18 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  19 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    5 |  20 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  21 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  22 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  23 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    6 |  24 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  25 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  26 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  27 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    7 |  28 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  29 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  30 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  31 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    8 |  32 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  33 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  34 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  35 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    9 |  36 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  37 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  38 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  39 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]   10 |  40 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  41 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  42 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  43 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]   11 |  44 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  45 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  46 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  47 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]   12 |  48 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  49 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  50 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  51 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]   13 |  52 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  53 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  54 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  55 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]   14 |  56 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  57 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  58 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  59 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]   15 |  60 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  61 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  62 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  63 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=] -----+-----+-------------------------------------------------+-----------------
+
+[+] Saved 1024 bytes to binary file `/home/ilaria/hf-mf-357F3203-dump.bin`
+[+] Saved to json file /home/ilaria/hf-mf-357F3203-dump.json
+[usb] pm3 --> hf search
+ 🕛  Searching for ISO14443-A tag...          
+[=] ---------- ISO14443-A Information ----------
+[+]  UID: 35 7F 32 03   ( ONUID, re-used )
+[+] ATQA: 00 04
+[+]  SAK: 08 [2]
+[+] Possible types:
+[+]    MIFARE Classic 1K
+[=] proprietary non iso14443-4 card found, RATS not supported
+[=] 
+
+[+] Magic capabilities... Gen 1a
+[#] Static nonce......... 009080a2
+[+] Static nonce......... yes
+
+[?] Hint: Use `hf mf c*` magic commands
+[?] Hint: Try `hf mf info`
+
+
+[+] Valid ISO 14443-A tag found
+
+[usb] pm3 --> hf search                       
+ 🕚  Searching for ISO14443-A tag...          
+[=] ---------- ISO14443-A Information ----------
+[+]  UID: 1E 04 12 03   ( ONUID, re-used )
+[+] ATQA: 00 04
+[+]  SAK: 08 [2]
+[+] Possible types:
+[+]    MIFARE Classic 1K
+[=] proprietary non iso14443-4 card found, RATS not supported
+[=] 
+
+[+] Magic capabilities... Gen 1a
+[#] Static nonce......... 009080a2
+[+] Static nonce......... yes
+
+[?] Hint: Use `hf mf c*` magic commands
+[?] Hint: Try `hf mf info`
+
+
+[+] Valid ISO 14443-A tag found
+
+[usb] pm3 --> hf mf csetuid 357F3203 0004 08
+hf mf csetuid: unexpected argument "357F3203"
+hf mf csetuid: unexpected argument "0004"
+hf mf csetuid: unexpected argument "08"
+[!] ⚠️  Try 'hf mf csetuid --help' for more information.
+
+[usb] pm3 --> hf mf csetuid --felp
+hf mf csetuid: invalid option "--felp"
+[!] ⚠️  Try 'hf mf csetuid --help' for more information.
+
+[usb] pm3 --> hf mf csetuid --help
+
+Set UID, ATQA, and SAK for magic gen1a card
+
+usage:
+    hf mf csetuid [-hw] [-u <hex>] [-a <hex>] [-s <hex>] [--gdm]
+
+options:
+    -h, --help                     This help
+    -w, --wipe                     wipes card with backdoor cmd`
+    -u, --uid <hex>                UID, 4/7 hex bytes
+    -a, --atqa <hex>               ATQA, 2 hex bytes
+    -s, --sak <hex>                SAK, 1 hex byte
+    --gdm                          use gdm alt (20/23) magic wakeup
+
+examples/notes:
+    hf mf csetuid -u 01020304     
+    hf mf csetuid -w -u 01020304 --atqa 0004 --sak 08
+
+[usb] pm3 --> hf mf csetuid -w -u 357F3203 --atqa 0004 --sak 08
+[+] old block 0... 1E0412030B0804006263646566676869
+[+] new block 0... 357F32037B0804006263646566676869
+[!!] 🚨 Can't set UID. error -1
+[usb] pm3 --> hf mf csetuid -w -u 357F3203 --atqa 0004 --sak 08
+[#] read block send command error
+[=] couldn't get old data. Will write over the last bytes of block 0
+[+] new block 0... 357F32037B0804000000000000000000
+[!!] 🚨 Can't set UID. error -1
+[usb] pm3 --> hf mf csetuid -w -u 357F3203 --atqa 0004 --sak 08
+[+] old block 0... 1E0412030B0804006263646566676869
+[+] new block 0... 357F32037B0804006263646566676869
+[!!] 🚨 Can't set UID. error -1
+[usb] pm3 --> hf mf csetuid -w -u 357F3203 --atqa 0004 --sak 08
+[+] old block 0... 43BF0F03F00804006263646566676869
+[+] new block 0... 357F32037B0804006263646566676869
+[!!] 🚨 Can't set UID. error -1
+[usb] pm3 --> hf mf csetuid -w -u 357F3203 --atqa 0004 --sak 08
+[+] old block 0... 43BF0F03F00804006263646566676869
+[+] new block 0... 357F32037B0804006263646566676869
+[!!] 🚨 Can't set UID. error -1
+[usb] pm3 --> hf mf csetuid -w -u 357F3203 --atqa 0004 --sak 08
+[#] wupC1 error
+[=] couldn't get old data. Will write over the last bytes of block 0
+[+] new block 0... 357F32037B0804000000000000000000
+[!!] 🚨 Can't set UID. error -1
+[usb] pm3 --> hf mf csetuid -w -u 357F3203 --atqa 0004 --sak 08
+[+] old block 0... C4285703B80804006263646566676869
+[+] new block 0... 357F32037B0804006263646566676869
+[!!] 🚨 Can't set UID. error -1
+[usb] pm3 --> hf mf csetuid -w -u 357F3203 --atqa 0004 --sak 08
+[#] wupC1 error
+[=] couldn't get old data. Will write over the last bytes of block 0
+[+] new block 0... 357F32037B0804000000000000000000
+[!!] 🚨 Can't set UID. error -1
+[usb] pm3 --> hf mf csetuid -w -u 357F3203 --atqa 0004 --sak 08
+[#] wupC1 error
+[=] couldn't get old data. Will write over the last bytes of block 0
+[+] new block 0... 357F32037B0804000000000000000000
+[!!] 🚨 Can't set UID. error -1
+[usb] pm3 --> hf mf csetuid -w -u 357F3203 --atqa 0004 --sak 08
+[+] old block 0... 43BF0F03F00804006263646566676869
+[+] new block 0... 357F32037B0804006263646566676869
+[!!] 🚨 Can't set UID. error -1
+[usb] pm3 --> hf mf csetuid -u 357F3203 --atqa 0004 --sak 08
+[+] old block 0... 43BF0F03F00804006263646566676869
+[+] new block 0... 357F32037B0804006263646566676869
+[+] Old UID... 43 BF 0F 03 
+[+] New UID... 35 7F 32 03  ( verified )
+[usb] pm3 --> hf search
+ 🕙  Searching for ISO14443-A tag...          
+[=] ---------- ISO14443-A Information ----------
+[+]  UID: 35 7F 32 03   ( ONUID, re-used )
+[+] ATQA: 00 04
+[+]  SAK: 08 [2]
+[+] Possible types:
+[+]    MIFARE Classic 1K
+[=] proprietary non iso14443-4 card found, RATS not supported
+[=] 
+
+[+] Magic capabilities... Gen 1a
+[#] Static nonce......... 009080a2
+[+] Static nonce......... yes
+
+[?] Hint: Use `hf mf c*` magic commands
+[?] Hint: Try `hf mf info`
+
+
+[+] Valid ISO 14443-A tag found
+
+[usb] pm3 --> hf mf restore                   
+[+] Loaded binary key file `/home/ilaria/hf-mf-357F3203-key.bin`
+[=] Using key file `hf-mf-357F3203-key.bin`
+[+] Loaded 1024 bytes from binary file `hf-mf-357F3203-dump.bin`
+
+[=]  blk | data                                            | status
+[=] -----+-------------------------------------------------+----------------
+[=]    0 | 35 7F 32 03 7B 08 04 00 62 63 64 65 66 67 68 69 | ( fail ) key B
+[=]    0 | 35 7F 32 03 7B 08 04 00 62 63 64 65 66 67 68 69 | ( fail ) key A
+[=]    1 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]    2 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]    3 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=]    4 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]    5 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]    6 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]    7 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=]    8 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]    9 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   10 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   11 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=]   12 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   13 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   14 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   15 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=]   16 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   17 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   18 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   19 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=]   20 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   21 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   22 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   23 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=]   24 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   25 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   26 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   27 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=]   28 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   29 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   30 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   31 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=]   32 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   33 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   34 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   35 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=]   36 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   37 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   38 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   39 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=]   40 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   41 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   42 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   43 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=]   44 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   45 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   46 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   47 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=]   48 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   49 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   50 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   51 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=]   52 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   53 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   54 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   55 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=]   56 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   57 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   58 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   59 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=]   60 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   61 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   62 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ( ok )
+[=]   63 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | ( ok )
+[=] -----+-------------------------------------------------+----------------
+
+[?] Hint: Try `hf mf dump --ns` to verify
+[=] Done!
+[usb] pm3 --> hf mf dump -ns
+hf mf dump: invalid option "-n"
+hf mf dump: invalid option "-s"
+[!] ⚠️  Try 'hf mf dump --help' for more information.
+
+[usb] pm3 --> hf mf dump --ns
+[=] Using... hf-mf-357F3203-key.bin
+[+] Loaded binary key file `/home/ilaria/hf-mf-357F3203-key.bin`
+[=] Reading sector access bits...
+[=] .................
+[+] Finished reading sector access bits
+[=] Dumping all blocks from card...
+ 🕔 Sector... 15 block... 3 ( ok )
+[+] Succeeded in dumping all blocks
+
+[+] time: 9 seconds
+
+
+[=] -----+-----+-------------------------------------------------+-----------------
+[=]  sec | blk | data                                            | ascii
+[=] -----+-----+-------------------------------------------------+-----------------
+[=]    0 |   0 | 35 7F 32 03 7B 08 04 00 62 63 64 65 66 67 68 69 | 5.2.{...bcdefghi
+[=]      |   1 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |   2 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |   3 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    1 |   4 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |   5 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |   6 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |   7 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    2 |   8 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |   9 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  10 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  11 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    3 |  12 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  13 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  14 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  15 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    4 |  16 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  17 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  18 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  19 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    5 |  20 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  21 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  22 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  23 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    6 |  24 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  25 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  26 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  27 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    7 |  28 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  29 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  30 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  31 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    8 |  32 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  33 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  34 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  35 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]    9 |  36 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  37 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  38 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  39 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]   10 |  40 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  41 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  42 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  43 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]   11 |  44 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  45 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  46 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  47 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]   12 |  48 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  49 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  50 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  51 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]   13 |  52 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  53 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  54 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  55 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]   14 |  56 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  57 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  58 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  59 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=]   15 |  60 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  61 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  62 | 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | ................
+[=]      |  63 | FF FF FF FF FF FF FF 07 80 69 FF FF FF FF FF FF | .........i......
+[=] -----+-----+-------------------------------------------------+-----------------
+
+[=] Called with no save option
+[usb] pm3 --> 
+
