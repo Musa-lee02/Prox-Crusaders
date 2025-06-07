@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-# relay_sniff_manual.py
-# Ilaria – progetto network-security
 
 import subprocess, time, sys, re, os
 
