@@ -16,10 +16,10 @@ Il progetto si riferisce al corso di Network Security dell'A.A. 2024/2025.
 
 | Percorso         | Contenuto                                                                                             |
 | ---------------- | ----------------------------------------------------------------------------------------------------- |
-| `relay/`  | **`relay.py`** – script stand‑alone di relay (mostrato nelle slide) con configurazioni d’esempio.     |
-| `card-clone/`    | Trace originali, log di laboratorio, dump binari e strumenti di parsing per la clonazione della card. |
-| `nested-attack/` | Script, trace e note tecniche relativi al *nested attack*.                                            |
-| `replay-attack/` | Dataset di APDU, log e script di replay.                                                              |
+| `relay/`         | **`relay.py`** – script per effettuare di relay con un solo proxmark (configurazione fallimentare).   |
+| `card-clone/`    | Trace originali e log per la clonazione della card.                                                   |
+| `nested-attack/` | Materiale e tecniche relative al *nested attack*.                                                     |
+| `replay-attack/` | Materiale e log per il replay *attack*                                                                |
 
 ## 🔍 Slide del progetto
 
