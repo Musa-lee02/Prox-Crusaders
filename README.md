@@ -1,7 +1,7 @@
 # Prox-Crusaders
 This is Jojo Reference
 
-LINK: https://www.canva.com/design/DAGnt-Sd4oY/OiR3BUhxqk3Qh1twyyF8dQ/view?utm_content=DAGnt-Sd4oY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h405fa26c64
+LINK: [https://www.canva.com/design/DAGnt-Sd4oY/OiR3BUhxqk3Qh1twyyF8dQ/view?utm_content=DAGnt-Sd4oY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h405fa26c64](https://www.canva.com/design/DAGnt-Sd4oY/nN0BgcjuFnr1OHoMy3rKgQ/view?utm_content=DAGnt-Sd4oY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h2b4edb1087)
 
 CLONA CARTA: Contiene il dump del cmd del portachiavi clonato nella card 1
 
