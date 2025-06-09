@@ -22,6 +22,7 @@ Il progetto si riferisce al corso di Network Security dell'A.A. 2024/2025.
 | `replay-attack/` | Materiale e log per il replay *attack*                                                                |
 
 ## 🔍 Slide del progetto
+Il materiale contenuto nelle varie cartelle in questo repository, insieme ai relativi log, sono riportati nelle slides.
 
 👉 [Presentazione completa su Canva](https://www.canva.com/design/DAGnt-Sd4oY/nN0BgcjuFnr1OHoMy3rKgQ/view?utm_content=DAGnt-Sd4oY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h2b4edb1087)
 
