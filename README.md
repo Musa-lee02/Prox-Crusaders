@@ -1,8 +1,6 @@
 # Prox Crusader 🛡️ 
 Progetto Network Security A.A. 2024/2025
 
-This is Jojo Reference
-
 ## ⚡️ Overview
 
 Prox Crusader è un laboratorio *off‑line* che dimostra tre tecniche di attacco contactless su smart‑card e sistemi NFC:
